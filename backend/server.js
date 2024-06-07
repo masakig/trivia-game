@@ -6,6 +6,19 @@ const { Question, addQuestion } = require('./models/Question');
 
 const app = express();
 
+// Change the route to return a random question
+app.get('/questions/random', async (req, res) => {
+  try {
+    const questions = await Question.find();
+    const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+    res.json(randomQuestion);
+  } catch (error) {
+    console.error('Error fetching random question:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/trivia', {
   useNewUrlParser: true,

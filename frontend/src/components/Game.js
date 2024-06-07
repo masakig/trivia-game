@@ -11,9 +11,8 @@ const TriviaGame = () => {
 
   const fetchQuestion = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/questions');
-      const randomQuestion = response.data[Math.floor(Math.random() * response.data.length)];
-      setQuestion(randomQuestion);
+      const response = await axios.get('http://localhost:5000/questions/random');
+      setQuestion(response.data);
     } catch (error) {
       console.error('Error fetching question:', error);
     }
